@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://c11r0j124wou6"]
+
+[ext_resource type="PackedScene" uid="uid://b15rjti2er4h7" path="res://scenes/earth.tscn" id="1_ylqtx"]
+[ext_resource type="PackedScene" uid="uid://dxelikbqt3331" path="res://scenes/parameter_control.tscn" id="2_aq738"]
+[ext_resource type="PackedScene" uid="uid://761iju6n5m75" path="res://scenes/rocket.tscn" id="2_mdedd"]
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="earth" parent="." instance=ExtResource("1_ylqtx")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(216, -198)
+zoom = Vector2(5, 5)
+
+[node name="rocket" parent="." node_paths=PackedStringArray("planet", "launchButton", "fuelControl", "exitVelocityControl", "angleControl") instance=ExtResource("2_mdedd")]
+position = Vector2(170, -183)
+rotation = 0.698132
+planet = NodePath("../earth")
+launchButton = NodePath("../CanvasLayer/parameters/Button")
+fuelControl = NodePath("../CanvasLayer/parameters/fuel")
+exitVelocityControl = NodePath("../CanvasLayer/parameters/velocity")
+angleControl = NodePath("../CanvasLayer/parameters/angle")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="parameters" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 742.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="fuel" parent="CanvasLayer/parameters" instance=ExtResource("2_aq738")]
+layout_mode = 2
+parameterName = "fuel"
+units = "L"
+maximum = 1e+06
+
+[node name="velocity" parent="CanvasLayer/parameters" instance=ExtResource("2_aq738")]
+layout_mode = 2
+parameterName = "target exit velocity"
+units = "m/s"
+maximum = 10000.0
+
+[node name="angle" parent="CanvasLayer/parameters" instance=ExtResource("2_aq738")]
+layout_mode = 2
+parameterName = "angle"
+units = "degrees per second"
+minimum = -90.0
+maximum = 90.0
+
+[node name="Button" type="Button" parent="CanvasLayer/parameters"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "launch"

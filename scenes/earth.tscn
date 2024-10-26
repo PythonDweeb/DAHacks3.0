@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b15rjti2er4h7"]
+
+[ext_resource type="Texture2D" uid="uid://bfus1sqxg3wib" path="res://images/earth.png" id="1_w3bwv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hn8of"]
+radius = 244.46
+
+[node name="earth" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hn8of")
+one_way_collision_margin = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_w3bwv")
+offset = Vector2(0, 9)
